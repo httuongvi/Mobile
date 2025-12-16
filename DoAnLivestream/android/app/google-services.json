@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "72767091254",
+    "project_id": "livestreamapp-4e208",
+    "storage_bucket": "livestreamapp-4e208.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72767091254:android:1fcf647bcd04aa923a5e97",
+        "android_client_info": {
+          "package_name": "com.doanlivestream"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUTG9E1vt0VGJhC92Ei1QzuGn7p64Svls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

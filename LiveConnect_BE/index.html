@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Livestream Viewer</title>
+    <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+  </head>
+  <body>
+    <h1>Màn hình người xem</h1>
+    <video id="videoElement" controls autoplay width="800"></video>
+
+    <script>
+      if (flvjs.isSupported()) {
+        var videoElement = document.getElementById("videoElement");
+        // Cấu hình player lắng nghe port 8000 (HTTP-FLV)
+        var flvPlayer = flvjs.createPlayer({
+          type: "flv",
+          url: "http://localhost:8000/live/mobile_test.flv",
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
+      }
+    </script>
+  </body>
+</html>

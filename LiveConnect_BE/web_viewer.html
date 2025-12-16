@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giả lập Khán giả</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 50px;
+        background-color: #f0f2f5;
+      }
+      h1 {
+        color: #333;
+      }
+      button {
+        padding: 20px 40px;
+        font-size: 24px;
+        cursor: pointer;
+        border: none;
+        border-radius: 50px;
+        transition: transform 0.1s;
+      }
+      #btnHeart {
+        background-color: #ff4757;
+        color: white;
+        box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+      }
+      #btnHeart:active {
+        transform: scale(0.9);
+      }
+      #log {
+        margin-top: 20px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎮 Bảng điều khiển Khán giả</h1>
+    <p>Bấm nút bên dưới để thả tim vào App</p>
+
+    <button id="btnHeart" onclick="sendHeart()">❤️ THẢ TIM NGAY</button>
+    <br /><br />
+
+    <div style="display: flex; justify-content: center; gap: 10px">
+      <input
+        type="text"
+        id="msgInput"
+        placeholder="Chat gì đó..."
+        style="padding: 10px; width: 200px"
+      />
+      <button
+        onclick="sendChat()"
+        style="
+          padding: 10px;
+          font-size: 16px;
+          background: #2ed573;
+          color: white;
+        "
+      >
+        Gửi Chat
+      </button>
+    </div>
+
+    <div id="log">Đang kết nối...</div>
+
+    <script>
+      // Kết nối tới Server Node.js trên máy tính (localhost)
+      const socket = io("http://localhost:3000");
+      const ROOM_ID = "mobile_test"; // Phải trùng với RoomID trong App React Native
+
+      socket.on("connect", () => {
+        document.getElementById("log").innerText = "✅ Đã kết nối Server!";
+        // Join vào phòng ngay khi kết nối
+        socket.emit("join_room", ROOM_ID);
+      });
+
+      // Hàm thả tim
+      function sendHeart() {
+        console.log("Đã bấm thả tim!");
+        socket.emit("send_heart", ROOM_ID);
+      }
+
+      // Hàm chat
+      function sendChat() {
+        const msg = document.getElementById("msgInput").value;
+        if (msg) {
+          socket.emit("send_message", {
+            roomID: ROOM_ID,
+            user: "Web User",
+            message: msg,
+          });
+          document.getElementById("msgInput").value = "";
+        }
+      }
+    </script>
+  </body>
+</html>
